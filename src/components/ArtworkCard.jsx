@@ -38,7 +38,7 @@ import React from "react";
 
 const ArtworkCard = ({ artwork }) => {
   //   To that   ensure the image URL is fully qualified
-  const imageUrl = artwork.primaryImage?.startsWith("https")
+  const imageUrl = artwork.primaryImage?.startsWith("http")
     ? artwork.primaryImage
     : `https://www.metmuseum.org${artwork.primaryImage}`;
 

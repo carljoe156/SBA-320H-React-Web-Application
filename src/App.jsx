@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import React Router components// may swtich the the react-router
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import React Router components// may switch  react-router
 import HomePage from "./pages/HomePage";
 import Details from "./pages/Details";
+import "./App.css";
 
 const App = () => {
   return (
