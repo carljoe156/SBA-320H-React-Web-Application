@@ -47,6 +47,7 @@ const ArtworkCard = ({ artwork }) => {
       <h3>{artwork.title}</h3>
       <p>{artwork.artistDisplayName}</p>
       <p>{artwork.objectDate}</p>
+      {/* <p>{artwork.objectDescription}</p> */}
 
       {imageUrl ? (
         <img

@@ -63,7 +63,7 @@ import { fetchObjectDetails } from "../services/ArtworkService";
 
 const Details = () => {
   const { objectID } = useParams(); // Get objectID from the URL params
-  const [artwork, setArtwork] = useState(null); // Store detailed artwork data
+  const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -79,7 +79,7 @@ const Details = () => {
       }
     };
 
-    fetchDetails(); // Fetch details when component mounts
+    fetchDetails();
   }, [objectID]);
 
   return (
@@ -89,10 +89,21 @@ const Details = () => {
       {artwork && (
         <div className="artwork-details">
           <h2>{artwork.title}</h2>
-          <p>Artist: {artwork.artistDisplayName}</p>
-          <p>Date: {artwork.objectDate}</p>
-          <img src={artwork.primaryImage} alt={artwork.title} />
-          <p>{artwork.objectDescription}</p>
+          <p>Artist: {artwork.artistDisplayName || "Unknown Artist"} </p>
+          <p>Date: {artwork.objectDate || "Unknown Date"}</p>
+          <p>Medium: {artwork.medium || "Unknown Medium"}</p>
+          <p>Dimensions: {artwork.dimensions || "Unknown Dimensions"}</p>
+          <p>
+            Classification: {artwork.classification || "Unknown Classification"}
+          </p>
+          {artwork.objectDescription && (
+            <p>Description: {artwork.objectDescription}</p>
+          )}
+          <img
+            src={artwork.primaryImage}
+            alt={artwork.title}
+            style={{ maxWidth: "80%", height: "auto", marginTop: "20px" }}
+          />
         </div>
       )}
     </div>
