@@ -51,3 +51,76 @@ export const fetchObjectDetails = async (objectID) => {
     return null;
   }
 };
+
+// Fetching departments from the Metropolitan Museum of Art API
+// export const fetchDepartments = async () => {
+//   try {
+//     const response = await fetch(
+//       "https://collectionapi.metmuseum.org/public/collection/v1/departments"
+//     );
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch departments");
+//     }
+//     const data = await response.json();
+//     return data.departments; // Assuming 'departments' is the key containing the department data
+//   } catch (error) {
+//     console.error("Error fetching departments:", error);
+//     throw error; // Rethrow error so that the caller can handle it
+//   }
+// };
+
+// Fetching departments from the Metropolitan Museum of Art API.
+export const fetchDepartments = async () => {
+  try {
+    const response = await fetch(
+      "https://collectionapi.metmuseum.org/public/collection/v1/departments"
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch departments");
+    }
+    const data = await response.json();
+    return data.departments;
+  } catch (error) {
+    console.error("Error fetching departments:", error);
+    throw error;
+  }
+};
+
+// Fetch artworks by department ID and then fetch full details for each artwork., I would need CORS enabled to make it possible, so I bypassed CORS by making the GET request simplified.
+export const fetchArtworksByDepartment = async (departmentId) => {
+  const response = await fetch(
+    `https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${departmentId}&q=&hasImages=true&limit=20`
+  );
+  const data = await response.json();
+  return data.objectIDs; // These are the IDs of artworks in the department
+};
+
+//w.I.P (Can probably create a new page for department details for this purpose)
+export const fetchArtworkDetails = async (objectId) => {
+  const response = await fetch(
+    `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+  );
+  const data = await response.json();
+  return data;
+};
+
+// This would work with CORS enabled.
+//     const artworksPromises = objectIDs.map(async (objectID) => {
+//       const artworkResponse = await fetch(
+//         `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
+//       );
+//       if (!artworkResponse.ok) {
+//         throw new Error(`Failed to fetch artwork with objectID ${objectID}`);
+//       }
+//       const artworkData = await artworkResponse.json();
+//       return artworkData; // Return the full details of each artwork
+//     });
+
+//     // Wait for all artwork details to be fetched
+//     const artworks = await Promise.all(artworksPromises);
+//     return artworks; // Return the array of artwork details
+//   } catch (error) {
+//     console.error("Error fetching artworks by department:", error);
+//     throw error; // Rethrow error to be handled by the caller
+//   }
+// };

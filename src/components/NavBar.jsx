@@ -19,6 +19,9 @@ const Navbar = () => {
       <Link to="/" className="home-link">
         Home
       </Link>
+      <Link to="/department" className="department-link">
+        Departments
+      </Link>
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"

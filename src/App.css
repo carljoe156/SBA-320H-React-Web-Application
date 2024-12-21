@@ -118,7 +118,7 @@ body {
   justify-content: center; /* Center the content vertically */
   text-align: center; /* Center text */
   padding: 15px;
-  border: 1px solid #ccc; /* Add some border */
+  border: 1px solid #666565; /* Add some border */
   border-radius: 8px; /* Add rounded corners */
   max-width: 200px; /* Limit the width */
   margin: 10px; /* Space between cards */
@@ -148,7 +148,8 @@ body {
   z-index: 100; /* Ensure it stays on top of other elements */
 }
 
-.home-link {
+.home-link,
+.department-link {
   color: #de8684;
   margin-left: 20px;
   text-decoration: none;
@@ -161,7 +162,7 @@ body {
 
 /* To prevent the rest of the page content from being covered by the navbar */
 body {
-  margin-top: 60px; /* Adjust according to the height of your navbar */
+  margin-top: 60px; /* Adjusted to the height of your navbar */
 }
 
 .search-form {
@@ -184,4 +185,22 @@ body {
 
 .search-form button:hover {
   background-color: #444;
+}
+
+/*For our Departments page */
+.department-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.department-details img {
+  max-width: 80%; /* Limit image width to prevent overflow */
+  height: auto;
+  margin-top: 20px;
 }

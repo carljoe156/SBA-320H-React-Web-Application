@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Im
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import Details from "./pages/Details";
+import DepartmentPage from "./pages/DepartmentPage";
 import SearchResults from "./pages/Search";
 import "./App.css";
 
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/details/:objectID" element={<Details />} />
         <Route path="/search/:searchTerm" component={SearchResults} />
+        <Route path="/department" element={<DepartmentPage />} />
       </Routes>
     </>
   );
