@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import Details from "./pages/Details";
 import DepartmentPage from "./pages/DepartmentPage";
 import About from "./pages/About";
+import Error from "./pages/Error";
 import "@fontsource/roboto-condensed";
 // import SearchBar from "./pages/SearchBar";
 import "./App.css";
@@ -21,6 +22,7 @@ const App = () => {
         {/* <Route path="/search/:searchTerm" element={<Search />} /> */}
         <Route path="/department" element={<DepartmentPage />} />
         <Route path="/about" element={<About />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   );
