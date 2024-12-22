@@ -9,7 +9,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1); // let's see the current page
-  const [artworksPerPage] = useState(100); // Number of artworks to load per page, lets od 50 for now
+  const [artworksPerPage] = useState(50); // Number of artworks to load per page, lets od 50 for now
 
   useEffect(() => {
     const fetchArtworks = async () => {
@@ -73,10 +73,26 @@ const HomePage = () => {
       {loading && <p>Loading artworks...</p>}
       {error && <p>{error}</p>}
 
-      <div className="card-container">
+      <div className="masonry-grid">
         {artworks.map((artwork) => (
           <Link to={`/details/${artwork.objectID}`} key={artwork.objectID}>
-            <ArtworkCard artwork={artwork} />{" "}
+            <img
+              className="masonry-item"
+              src={artwork.primaryImageSmall}
+              alt={artwork.title}
+            />
+            {/* Artwork Information */}
+            <div className="masonry-item-info">
+              <h3 className="artwork-title">{artwork.title}</h3>
+              {artwork.artistDisplayName && (
+                <p className="artwork-artist">
+                  Artist: {artwork.artistDisplayName}
+                </p>
+              )}
+              {artwork.objectDate && (
+                <p className="artwork-period">Period: {artwork.objectDate}</p>
+              )}
+            </div>
           </Link>
         ))}
       </div>

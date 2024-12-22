@@ -46,24 +46,27 @@ body {
 }
 
 .homepage-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   padding: 20px;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 80px; */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.card-container {
+/* .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   margin-top: 20px;
   width: 100%;
   max-width: 1200px;
-}
+} */
 
 /* For Pagination */
 .pagination {
@@ -203,4 +206,26 @@ body {
   max-width: 80%; /* Limit image width to prevent overflow */
   height: auto;
   margin-top: 20px;
+}
+
+/* Updated UI */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* Flexible column widths */
+  gap: 20px;
+}
+
+.masonry-item {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.masonry-item:hover {
+  transform: scale(1.05);
 }
