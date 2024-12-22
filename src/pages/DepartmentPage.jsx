@@ -10,6 +10,12 @@ const DepartmentPage = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const [totalPages, setTotalPages] = useState(0); // Track total number of pages
+
+  // Filters
+  const [artist, setArtist] = useState(""); // Artist filter
+  const [timePeriod, setTimePeriod] = useState(""); // Time period filter
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -28,7 +34,13 @@ const DepartmentPage = () => {
   const handleDepartmentSelect = async (departmentId) => {
     setLoading(true);
     try {
-      const artworkIDs = await fetchArtworksByDepartment(departmentId);
+      const artworkIDs = await fetchArtworksByDepartment(
+        departmentId,
+        currentPage,
+        20,
+        artist,
+        timePeriod
+      );
 
       if (artworkIDs.length === 0) {
         setError("No artworks found in this department.");
@@ -38,10 +50,31 @@ const DepartmentPage = () => {
         artworkIDs.map((id) => fetchObjectDetails(id))
       );
       setArtworks(artworksData);
+      setTotalPages(Math.ceil(artworksData.length / 20));
     } catch (error) {
       setError("Error fetching artworks.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    if (departments.length > 0) {
+      handleDepartmentSelect(departments[0].departmentId); // Re-fetch artworks for the selected department
+    }
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    if (filterType === "artist") {
+      setArtist(value);
+    } else if (filterType === "timePeriod") {
+      setTimePeriod(value);
+    }
+
+    setCurrentPage(1);
+    if (departments.length > 0) {
+      handleDepartmentSelect(departments[0].departmentId); // Re-fetch artworks based on the new filter
     }
   };
 
@@ -71,8 +104,34 @@ const DepartmentPage = () => {
             <h3>{artwork.title}</h3>
             <p>{artwork.artistDisplayName}</p>
             <p>{artwork.objectDate}</p>
+            <p>
+              <a
+                href={artwork.objectURL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on the Met's Website
+              </a>
+            </p>
           </div>
         ))}
+      </div>
+      <div className="pagination">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
