@@ -4,7 +4,7 @@ import "../App.css";
 
 const About = () => {
   return (
-    <div>
+    <div className="about-page">
       <h1>Welcome to the Met Virtual Collection</h1>
       <p>
         This project has been a passion project of mine for a while, it's a

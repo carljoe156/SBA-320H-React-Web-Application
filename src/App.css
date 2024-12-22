@@ -57,6 +57,9 @@ body {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  color: #b14949ce;
+  font-family: "Roboto Condensed";
+  font-weight: 20;
 }
 
 /* .card-container {
@@ -92,7 +95,7 @@ body {
 }
 
 .pagination button:hover {
-  background-color: #0056b3;
+  background-color: #ffffff;
 }
 
 /* Our CSS for the Details page */
@@ -138,7 +141,9 @@ body {
 
 /* Navbar styling */
 .navbar {
-  background-color: #333; /* Background color of the navbar */
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  background-color: #5f3e3e; /* Background color of the navbar */
   color: #de8684;
   padding: 0px 10px; /* Padding around the navbar */
   display: flex;
@@ -155,9 +160,11 @@ body {
 .department-link,
 .about-link {
   color: #de8684;
-  margin-left: 20px;
+  margin-left: 10px;
   text-decoration: none;
+  padding: 0%;
   font-size: 18px;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .home-link:hover {
@@ -167,6 +174,19 @@ body {
 /* To prevent the rest of the page content from being covered by the navbar */
 body {
   margin-top: 60px; /* Adjusted to the height of your navbar */
+}
+
+.about-page {
+  display: flex;
+  /* flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto; */
+  font-family: "Roboto Condensed";
+  font-weight: 20;
 }
 
 .search-form {
@@ -181,14 +201,14 @@ body {
 
 .search-form button {
   padding: 5px 10px;
-  background-color: #555;
+  background-color: #e9d2d2;
   color: #de8684;
   border: none;
   cursor: pointer;
 }
 
 .search-form button:hover {
-  background-color: #444;
+  background-color: #e4d8d8;
 }
 
 /*For our Departments page */
@@ -198,9 +218,10 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   max-width: 800px;
   margin: 0 auto;
+  color: rgb(53, 56, 56);
 }
 
 .department-details img {

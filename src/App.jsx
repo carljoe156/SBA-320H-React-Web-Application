@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import Details from "./pages/Details";
 import DepartmentPage from "./pages/DepartmentPage";
 import About from "./pages/About";
+import "@fontsource/roboto-condensed";
 // import SearchBar from "./pages/SearchBar";
 import "./App.css";
 
