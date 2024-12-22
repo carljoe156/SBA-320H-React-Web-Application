@@ -152,7 +152,8 @@ body {
 }
 
 .home-link,
-.department-link {
+.department-link,
+.about-link {
   color: #de8684;
   margin-left: 20px;
   text-decoration: none;

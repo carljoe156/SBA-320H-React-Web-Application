@@ -157,3 +157,32 @@ export const fetchArtworkDetails = async (objectId) => {
 //     throw error;
 //   }
 // };
+
+// Our Search
+// ArtworkService.js
+// export const fetchSearchResults = async (searchTerm) => {
+//   try {
+//     const res = await fetch(
+//       `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchTerm}&hasImages=true`
+//     );
+//     const data = await res.json();
+
+//     if (data.objectIDs && data.objectIDs.length > 0) {
+//       // Fetch artwork details for each object ID (limited to 40 for performance)
+//       const artworkPromises = data.objectIDs.slice(0, 40).map(async (id) => {
+//         const artworkRes = await fetch(
+//           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`
+//         );
+//         const artwork = await artworkRes.json();
+//         return artwork.primaryImage ? artwork : null; // Filter out items without images
+//       });
+
+//       const artworks = await Promise.all(artworkPromises);
+//       return artworks.filter(Boolean); // Remove null values
+//     }
+
+//     return [];
+//   } catch (error) {
+//     throw new Error("Error fetching search results");
+//   }
+// };

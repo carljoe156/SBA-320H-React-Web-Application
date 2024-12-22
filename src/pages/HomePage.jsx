@@ -81,7 +81,6 @@ const HomePage = () => {
               src={artwork.primaryImageSmall}
               alt={artwork.title}
             />
-            {/* Artwork Information */}
             <div className="masonry-item-info">
               <h3 className="artwork-title">{artwork.title}</h3>
               {artwork.artistDisplayName && (
@@ -100,7 +99,12 @@ const HomePage = () => {
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
         </button>
-        <button onClick={handleNextPage}>Next</button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
       </div>
     </div>
   );

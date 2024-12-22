@@ -1,65 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { fetchObjectDetails, fetchObjectIDs } from "../services/ArtworkService";
-import ArtworkCard from "../components/ArtworkCard";
+// import React, { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// // import Search from "../pages/Search";
+// const Navbar = () => {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const navigate = useNavigate();
 
-const SearchResults = () => {
-  const { searchTerm } = useParams();
-  const [artworks, setArtworks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+//   // Handle the search submit action
+//   const handleSearch = (event) => {
+//     event.preventDefault();
+//     if (searchTerm.trim()) {
+//       navigate(`/search/${searchTerm}`);
+//     }
+//   };
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      try {
-        // Fetch all object IDs
-        const ids = await fetchObjectIDs();
+//   return (
+//     <nav className="navbar">
+//       <h1>MET Artworks Collection</h1>
 
-        // Fetch artwork details for all the object IDs
-        const artworkPromises = ids.map((id) => fetchObjectDetails(id));
-        const artworksData = await Promise.all(artworkPromises);
+//       <Link to="/" className="home-link">
+//         Home
+//       </Link>
+//       <Link to="/department" className="department-link">
+//         Departments
+//       </Link>
+//       <Link to="/about" className="about-link">
+//         About
+//       </Link>
 
-        // Filter the artworks based on the search term ( like  artist name, title, or description)
-        const filteredArtworks = artworksData.filter((artwork) => {
-          return (
-            artwork.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            artwork.artistDisplayName
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase()) ||
-            (artwork.objectDescription &&
-              artwork.objectDescription
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase()))
-          );
-        });
+//       {/* Search form
+//       <form onSubmit={handleSearch} className="search-form">
+//         <input
+//           type="text"
+//           value={searchTerm}
+//           onChange={(e) => setSearchTerm(e.target.value)}
+//           placeholder="Search artworks..."
+//         />
+//         <button type="submit" disabled={!searchTerm.trim()}>
+//           Search
+//         </button>
+//       </form> */}
+//     </nav>
+//   );
+// };
 
-        setArtworks(filteredArtworks);
-      } catch (error) {
-        setError("Error fetching search results.");
-      } finally {
-        setLoading(false);
-      }
-    };
+// export default Navbar;
 
-    fetchSearchResults();
-  }, [searchTerm]);
-
-  return (
-    <div>
-      <h1>Search Results for "{searchTerm}"</h1>
-      {loading && <p>Loading search results...</p>}
-      {error && <p>{error}</p>}
-      <div className="card-container">
-        {artworks.length > 0 ? (
-          artworks.map((artwork) => (
-            <ArtworkCard key={artwork.objectID} artwork={artwork} />
-          ))
-        ) : (
-          <p>No artworks found matching "{searchTerm}".</p>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default SearchResults;
+// DO NOT NEED THIS
