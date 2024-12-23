@@ -32,7 +32,7 @@ const DepartmentPage = () => {
 
   // Fetch artworks for the selected department
   useEffect(() => {
-    if (!selectedDepartmentId) return; // Don't fetch if no department is selected
+    if (!selectedDepartmentId) return;
 
     const getArtworks = async () => {
       setLoading(true);
@@ -75,7 +75,6 @@ const DepartmentPage = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      {/* Continuous scrollable department list */}
       <div className="department-list">
         {departments.map((department) => (
           <DepartmentCard
@@ -92,7 +91,6 @@ const DepartmentPage = () => {
           {loading && <p>Loading artworks...</p>}
           {error && <p>{error}</p>}
 
-          {/* Display the artworks for the selected department */}
           <div className="artworks-container">
             {artworks.map((artwork) => (
               <div key={artwork.objectID} className="artwork-card">
@@ -115,7 +113,6 @@ const DepartmentPage = () => {
             ))}
           </div>
 
-          {/* Pagination for artworks */}
           <div className="pagination">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
