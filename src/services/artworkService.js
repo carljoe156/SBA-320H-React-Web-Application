@@ -111,13 +111,20 @@ export const fetchArtworksByDepartment = async (
 
 //w.I.P (Can probably create a new page for department details for this purpose)
 export const fetchArtworkDetails = async (objectId) => {
-  const response = await fetch(
-    `https://collectionapi.metmuseum.org/public/collection/v1/search?isPublicDomain=true&hasImages=true`
-  );
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch artwork details");
+    }
+    const data = await response.json();
+    return data; // Return the full artwork details
+  } catch (error) {
+    console.error("Error fetching artwork details:", error);
+    throw error;
+  }
 };
-
 // This would work with CORS enabled.
 //     const artworksPromises = objectIDs.map(async (objectID) => {
 //       const artworkResponse = await fetch(

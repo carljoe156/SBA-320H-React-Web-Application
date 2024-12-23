@@ -4,19 +4,18 @@ import {
   fetchArtworksByDepartment,
   fetchObjectDetails,
 } from "../services/ArtworkService";
+import DepartmentCard from "../components/DepartmentCard";
 
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
-  const [artworks, setArtworks] = useState([]);
+  const [artworks, setArtworks] = useState([]); // Store artworks of selected department
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalPages, setTotalPages] = useState(0); // Track total number of pages
+  const [selectedDepartmentId, setSelectedDepartmentId] = useState(null); // Store selected department id
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  // Filters
-  const [artist, setArtist] = useState(""); // Artist filter
-  const [timePeriod, setTimePeriod] = useState(""); // Time period filter
-
+  // Fetch departments on component mount
   useEffect(() => {
     const getDepartments = async () => {
       try {
@@ -31,51 +30,43 @@ const DepartmentPage = () => {
     getDepartments();
   }, []);
 
-  const handleDepartmentSelect = async (departmentId) => {
-    setLoading(true);
-    try {
-      const artworkIDs = await fetchArtworksByDepartment(
-        departmentId,
-        currentPage,
-        20,
-        artist,
-        timePeriod
-      );
+  // Fetch artworks for the selected department
+  useEffect(() => {
+    if (!selectedDepartmentId) return; // Don't fetch if no department is selected
 
-      if (artworkIDs.length === 0) {
-        setError("No artworks found in this department.");
-        return;
+    const getArtworks = async () => {
+      setLoading(true);
+      try {
+        const artworkIDs = await fetchArtworksByDepartment(
+          selectedDepartmentId,
+          currentPage,
+          20
+        );
+        const artworksData = await Promise.all(
+          artworkIDs.map((id) => fetchObjectDetails(id))
+        );
+
+        setArtworks(artworksData);
+        setTotalPages(Math.ceil(artworksData.length / 20)); // Update total pages for pagination
+      } catch (error) {
+        setError("Error fetching artworks.");
+      } finally {
+        setLoading(false);
       }
-      const artworksData = await Promise.all(
-        artworkIDs.map((id) => fetchObjectDetails(id))
-      );
-      setArtworks(artworksData);
-      setTotalPages(Math.ceil(artworksData.length / 20));
-    } catch (error) {
-      setError("Error fetching artworks.");
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    getArtworks();
+  }, [selectedDepartmentId, currentPage]);
+
+  // Handle department card selection
+  const handleDepartmentSelect = (departmentId) => {
+    setSelectedDepartmentId(departmentId); // Set the selected department id
+    setCurrentPage(1); // Reset to first page when a new department is selected
   };
 
+  // Handle pagination
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    if (departments.length > 0) {
-      handleDepartmentSelect(departments[0].departmentId); // Re-fetch artworks for the selected department
-    }
-  };
-
-  const handleFilterChange = (filterType, value) => {
-    if (filterType === "artist") {
-      setArtist(value);
-    } else if (filterType === "timePeriod") {
-      setTimePeriod(value);
-    }
-
-    setCurrentPage(1);
-    if (departments.length > 0) {
-      handleDepartmentSelect(departments[0].departmentId); // Re-fetch artworks based on the new filter
-    }
   };
 
   return (
@@ -84,55 +75,66 @@ const DepartmentPage = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      <div>
+      {/* Continuous scrollable department list */}
+      <div className="department-list">
         {departments.map((department) => (
-          <button
+          <DepartmentCard
             key={department.departmentId}
-            onClick={() => handleDepartmentSelect(department.departmentId)}
-          >
-            {department.displayName}
-          </button>
+            department={department}
+            onSelect={handleDepartmentSelect}
+          />
         ))}
       </div>
 
-      <h2>Artworks</h2>
-      <div>
-        {artworks.map((artwork) => (
-          <div key={artwork.objectID} className="department-details">
-            <h3>{artwork.title}</h3>
-            <img src={artwork.primaryImage} alt={artwork.title} />
-            <h3>{artwork.title}</h3>
-            <p>{artwork.artistDisplayName}</p>
-            <p>{artwork.objectDate}</p>
-            <p>
-              <a
-                href={artwork.objectURL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on the Met's Website
-              </a>
-            </p>
+      {selectedDepartmentId && (
+        <>
+          <h2>Artworks in This Department</h2>
+          {loading && <p>Loading artworks...</p>}
+          {error && <p>{error}</p>}
+
+          {/* Display the artworks for the selected department */}
+          <div className="artworks-container">
+            {artworks.map((artwork) => (
+              <div key={artwork.objectID} className="artwork-card">
+                <img
+                  className="artwork-image"
+                  src={artwork.primaryImageSmall || "default-image.jpg"}
+                  alt={artwork.title}
+                />
+                <h3>{artwork.title}</h3>
+                <p>{artwork.artistDisplayName}</p>
+                <p>{artwork.objectDate}</p>
+                <a
+                  href={artwork.objectURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on the Met's Website
+                </a>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+
+          {/* Pagination for artworks */}
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
