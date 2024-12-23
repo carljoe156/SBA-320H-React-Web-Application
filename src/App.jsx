@@ -7,6 +7,7 @@ import Details from "./pages/Details";
 import DepartmentPage from "./pages/DepartmentPage";
 import About from "./pages/About";
 import Error from "./pages/Error";
+import Footer from "./components/Footer";
 import "@fontsource/roboto-condensed";
 // import SearchBar from "./pages/SearchBar";
 import "./App.css";
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <Footer />
     </>
   );
 };

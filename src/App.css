@@ -230,6 +230,32 @@ body {
   margin-top: 20px;
 }
 
+.department-link:hover {
+  text-decoration: underline;
+}
+
+.about-link:hover {
+  text-decoration: underline;
+}
+
+.error-page {
+  text-align: center;
+  padding: 50px;
+  background-color: #f9f9f9;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.error-page h1 {
+  color: #e74c3c;
+}
+
+.error-page a {
+  color: #3498db;
+  text-decoration: none;
+}
+
 /* Updated UI */
 .masonry-grid {
   display: grid;
@@ -250,4 +276,40 @@ body {
 
 .masonry-item:hover {
   transform: scale(1.05);
+}
+
+/* Footer */
+.footer {
+  background-color: #472e2e;
+  color: #bf6a6a;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+}
+
+.footer .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: auto;
+}
+
+.footer nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer nav ul li a {
+  color: #bf6a6a;
+  text-decoration: none;
+}
+
+.footer nav ul li a:hover {
+  text-decoration: underline;
 }

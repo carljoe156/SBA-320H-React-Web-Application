@@ -8,55 +8,49 @@ const HomePage = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); // let's see the current page
-  const [artworksPerPage] = useState(50); // Number of artworks to load per page, lets od 50 for now
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const [artworksPerPage] = useState(50); // Number of artworks per page
 
+  // Fetch the artwork details for each page
   useEffect(() => {
     const fetchArtworks = async () => {
+      setLoading(true);
+      setError(null); // Reset error before fetching
       try {
-        const ids = await fetchObjectIDs(); // Get a list of object IDs
-        setObjectIDs(ids);
+        const ids = await fetchObjectIDs(); // Fetch a list of object IDs
+        setObjectIDs(ids); // Set all IDs to state
 
-        // Get the artworks for the current page, we slice the ids array based on the current page and artworksPerPage,
-        // and then fetch the details for each artwork.
+        // Determine the range of IDs to fetch for the current page
         const startIndex = (currentPage - 1) * artworksPerPage;
         const endIndex = startIndex + artworksPerPage;
         const idsForCurrentPage = ids.slice(startIndex, endIndex);
 
-        // Fetch the details for each artwork in the current page.
+        // Fetch details for the artworks in the current page
         const artworkPromises = idsForCurrentPage.map((id) =>
           fetchObjectDetails(id)
         );
         const artworksData = await Promise.all(artworkPromises);
-        // const artworksData = await Promise.all(
-        //   ids.slice(0, 50).map((id) => fetchObjectDetails(id)) // Fetch details for each artwork
-        //   ids.map((id) => fetchObjectDetails(id))
 
+        // Filter out any artworks without images
         const filteredArtworks = artworksData.filter(
           (artwork) => artwork.primaryImage
         );
 
-        setArtworks(filteredArtworks); // Store filtered artworks with images
+        setArtworks(filteredArtworks); // Set the filtered artworks to state
       } catch (error) {
-        setError("Error fetching artworks.");
+        setError("Error fetching artworks. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
-    //     setArtworks(artworksData); // Store all artwork data
-    //   } catch (error) {
-    //     setError("Error fetching artworks.");
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-
-    fetchArtworks();
-  }, [currentPage]);
+    fetchArtworks(); // Trigger the artwork fetch
+  }, [currentPage]); // Fetch artworks whenever the page changes
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1); // Go to the next page
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1); // Go to the next page
+    }
   };
 
   const handlePreviousPage = () => {
@@ -65,11 +59,13 @@ const HomePage = () => {
     }
   };
 
+  // Calculate total pages based on the object IDs length
   const totalPages = Math.ceil(objectIDs.length / artworksPerPage);
 
   return (
     <div className="homepage-container">
       <h1>The Met Collection</h1>
+
       {loading && <p>Loading artworks...</p>}
       {error && <p>{error}</p>}
 
@@ -95,6 +91,7 @@ const HomePage = () => {
           </Link>
         ))}
       </div>
+
       <div className="pagination">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
