@@ -15,7 +15,6 @@ const DepartmentPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  // Fetch departments on component mount
   useEffect(() => {
     const getDepartments = async () => {
       try {
@@ -30,7 +29,7 @@ const DepartmentPage = () => {
     getDepartments();
   }, []);
 
-  // Fetch artworks for the selected department
+  // For Fetching the artworks for the selected department
   useEffect(() => {
     if (!selectedDepartmentId) return;
 
@@ -47,7 +46,7 @@ const DepartmentPage = () => {
         );
 
         setArtworks(artworksData);
-        setTotalPages(Math.ceil(artworksData.length / 20)); // Update total pages for pagination
+        setTotalPages(Math.ceil(artworksData.length / 50)); // Updates the total pages in pagination
       } catch (error) {
         setError("Error fetching artworks.");
       } finally {
@@ -58,13 +57,12 @@ const DepartmentPage = () => {
     getArtworks();
   }, [selectedDepartmentId, currentPage]);
 
-  // Handle department card selection
   const handleDepartmentSelect = (departmentId) => {
     setSelectedDepartmentId(departmentId); // Set the selected department id
     setCurrentPage(1); // Reset to first page when a new department is selected
   };
 
-  // Handle pagination
+  // Handle the pagination
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };

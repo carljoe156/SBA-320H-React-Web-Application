@@ -28,6 +28,11 @@ const Navbar = () => {
       <Link to="/about" className="about-link">
         About
       </Link>
+      <Link>
+        <Link to="/random-artwork" className="random-artwork-link">
+          Random Artwork
+        </Link>
+      </Link>
 
       <form onSubmit={handleSearch} className="search-form">
         {/* You can either use your SearchBar component here or build custom inputs */}

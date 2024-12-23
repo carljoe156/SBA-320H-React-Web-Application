@@ -154,11 +154,13 @@ body {
   left: 0; /* Ensure it aligns with the left side of the page */
   width: 100%; /* Make the navbar span the full width of the page */
   z-index: 100; /* Ensure it stays on top of other elements */
+  text-decoration: none;
 }
 
 .home-link,
 .department-link,
-.about-link {
+.about-link,
+.random-artwork-link {
   color: #de8684;
   margin-left: 10px;
   text-decoration: none;
@@ -169,6 +171,10 @@ body {
 
 .home-link:hover {
   text-decoration: underline; /* Underline on hover */
+}
+
+.random-artwork-link:hover {
+  text-decoration: underline;
 }
 
 /* To prevent the rest of the page content from being covered by the navbar */
@@ -187,6 +193,7 @@ body {
   margin: 0 auto; */
   font-family: "Roboto Condensed";
   font-weight: 20;
+  color: #d47f7e;
 }
 
 .search-form {
@@ -407,7 +414,7 @@ body {
 .pagination button {
   padding: 8px 16px;
   border: none;
-  background-color: #007bff;
+  background-color: #803a29;
   color: white;
   border-radius: 4px;
   cursor: pointer;
@@ -417,4 +424,41 @@ body {
 .pagination button:disabled {
   background-color: #ddd;
   cursor: not-allowed;
+}
+
+.location-met {
+  color: #de8684;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Random-Artwork styling information */
+
+.random-artwork-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.random-artwork-details img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.random-artwork-details h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.random-artwork-details p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }

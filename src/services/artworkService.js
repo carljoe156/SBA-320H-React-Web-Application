@@ -98,15 +98,24 @@ export const fetchDepartments = async () => {
 export const fetchArtworksByDepartment = async (
   departmentId,
   page = 1,
-  limit = 20,
+  limit = 200,
   artist = "",
   timePeriod = ""
 ) => {
-  const response = await fetch(
-    `https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${departmentId}&q=${artist}&dateBegin=${timePeriod}&hasImages=true&limit=${limit}&page=${page}`
-  );
-  const data = await response.json();
-  return data.objectIDs; // These are the IDs of artworks in the department
+  try {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${departmentId}&q=${artist}&dateBegin=${timePeriod}&hasImages=true&limit=${limit}&page=${page}`
+    );
+    const data = await response.json();
+    if (data.objectIDs && data.objectIDs.length > 0) {
+      return data.objectIDs; // Return the IDs if found
+    } else {
+      return []; // Return an empty array if no artworks are found
+    }
+  } catch (error) {
+    console.error("Error fetching artworks:", error);
+    return []; // Return empty array in case of error
+  }
 };
 
 //w.I.P (Can probably create a new page for department details for this purpose)
