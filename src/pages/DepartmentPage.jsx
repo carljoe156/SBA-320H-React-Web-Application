@@ -73,7 +73,7 @@ const DepartmentPage = () => {
 
   return (
     <div>
-      <h1>Departments</h1>
+      <h1 className="department-title">Departments</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 

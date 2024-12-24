@@ -1,4 +1,4 @@
-# SBA-320H-React-Web-Application- The Museum Collection Application
+# SBA-320H-React-Web-Application-The Museum Collection Application
 
 ## The Met Museum Collection App
 
