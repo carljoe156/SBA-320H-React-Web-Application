@@ -21,9 +21,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/details/:objectID" element={<Details />} />
-        {/* <Route path="/search/:searchTerm" element={<Search />} /> */}
+        {/* <Route path="/search/:searchTerm" element={<Search />} />   W.I.P this is the route leading us the the search term      */}
         <Route path="/department" element={<DepartmentPage />} />
-        <Route path="/department/:departmentId" component={DepartmentPage} />
+        {/* <Route path="/department/:departmentId" component={DepartmentPage} /> */}
         <Route path="/about" element={<About />} />
         <Route path="/random-artwork" element={<RandomArtworkPage />} />
         <Route path="*" element={<Error />} />

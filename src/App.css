@@ -634,6 +634,7 @@ body {
   height: 100vh;
   padding: 20px;
   flex-wrap: wrap;
+  font-style: italic;
 }
 
 .random-artwork-content {
