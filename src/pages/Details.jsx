@@ -30,12 +30,34 @@ const Details = () => {
       {artwork && (
         <div className="artwork-details">
           <h2>{artwork.title}</h2>
-          <p>Artist: {artwork.artistDisplayName || "Unknown Artist"} </p>
-          <p>Date: {artwork.objectDate || "Unknown Date"}</p>
-          <p>Medium: {artwork.medium || "Unknown Medium"}</p>
-          <p>Dimensions: {artwork.dimensions || "Unknown Dimensions"}</p>
           <p>
-            Classification: {artwork.classification || "Unknown Classification"}
+            <strong>Artist:</strong>
+            {artwork.artistDisplayName || "Unknown Artist"}{" "}
+          </p>
+          <p>
+            <strong>Date:</strong>
+            {artwork.objectDate || "Unknown Date"}
+          </p>
+          <p>
+            <strong>Period:</strong> {artwork.objectDate}
+          </p>
+          <p>
+            <strong>Medium:</strong>
+            {artwork.medium || "Unknown Medium"}
+          </p>
+          <p>
+            <strong>Dimensions:</strong>
+            {artwork.dimensions || "Unknown Dimensions"}
+          </p>
+          <p>
+            <strong>Classification:</strong>
+            {artwork.classification || "Unknown Classification"}
+          </p>
+          <p>
+            <strong>Location:</strong> {artwork.gallery || "Not specified"}
+          </p>
+          <p>
+            <strong>Culture:</strong> {artwork.culture || "Not specified"}
           </p>
 
           {artwork.objectDescription && (

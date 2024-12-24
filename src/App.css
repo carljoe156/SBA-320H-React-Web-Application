@@ -111,12 +111,17 @@ body {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  color: #b14949ce;
 }
 
 .artwork-details img {
   max-width: 80%; /* Limit image width to prevent overflow */
   height: auto;
   margin-top: 20px;
+}
+
+.artwork-details a {
+  color: #ff0000ce;
 }
 
 /*  CSS for our Artwork Card */
@@ -131,6 +136,7 @@ body {
   border-radius: 8px; /* Add rounded corners */
   max-width: 200px; /* Limit the width */
   margin: 10px; /* Space between cards */
+  color: #b14949ce;
 }
 
 .artwork-card img {
@@ -172,12 +178,18 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+.random-artwork-link a {
+  text-decoration: none;
+}
+
 .home-link:hover {
   text-decoration: underline; /* Underline on hover */
+  color: #b14949ce;
 }
 
 .random-artwork-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: #b14949ce;
 }
 
 /* To prevent the rest of the page content from being covered by the navbar */
@@ -232,6 +244,7 @@ body {
   border-radius: 8px; /* Add rounded corners */
   max-width: 200px; /* Limit the width */
   margin: 10px; /* Space between cards */
+  color: #b14949ce;
 }
 
 .department-card img {
@@ -239,6 +252,7 @@ body {
   height: auto;
   border-radius: 4px;
   margin-top: 10px;
+  color: #b14949ce;
 }
 
 .department-grid {
@@ -246,6 +260,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
   padding: 16px;
+  color: #b14949ce;
 }
 
 /*For our Departments page */
@@ -265,6 +280,15 @@ body {
   max-width: 80%; /* Limit image width to prevent overflow */
   height: auto;
   margin-top: 20px;
+  color: #b14949ce;
+}
+
+.department-list {
+  color: #b14949ce;
+}
+
+.department-list-2 {
+  color: #b14949ce;
 }
 
 /* for small card images */
@@ -273,14 +297,17 @@ body {
   height: auto;
   object-fit: cover; /* This will crop the image to fit the container */
   border-radius: 8px; /* Optional: rounded corners for the image */
+  color: #b14949ce;
 }
 
 .department-link:hover {
   text-decoration: underline;
+  color: #b14949ce;
 }
 
 .about-link:hover {
   text-decoration: underline;
+  color: #b14949ce;
 }
 
 .error-page {
@@ -293,11 +320,11 @@ body {
 }
 
 .error-page h1 {
-  color: #e74c3c;
+  color: #b14949ce;
 }
 
 .error-page a {
-  color: #3498db;
+  color: #b14949ce;
   text-decoration: none;
 }
 
@@ -309,6 +336,7 @@ body {
     minmax(250px, 1fr)
   ); /* Flexible column widths */
   gap: 20px;
+  color: #b14949ce;
 }
 
 .masonry-item {
@@ -317,10 +345,18 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
+  color: #b14949ce;
+  text-decoration: none;
+}
+.masonry-item-info {
+  color: #b14949ce;
+  text-decoration: none;
 }
 
 .masonry-item:hover {
   transform: scale(1.05);
+  color: #b14949ce;
+  text-decoration: none;
 }
 
 /* Footer */
@@ -370,6 +406,7 @@ body {
   overflow-x: auto;
   gap: 16px;
   padding: 20px;
+  color: #b14949ce;
 }
 
 .department-card {
@@ -380,16 +417,19 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  color: #b14949ce;
 }
 
 .department-card:hover {
   transform: scale(1.05);
+  color: #b14949ce;
 }
 
 .department-card img {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  color: #b14949ce;
 }
 
 .artworks-container {
@@ -397,6 +437,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 20px;
+  color: #b14949ce;
 }
 
 .artwork-card {
@@ -410,6 +451,7 @@ body {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  color: #b14949ce;
 }
 
 .pagination {
@@ -446,19 +488,22 @@ body {
   margin: 0 auto;
   border-radius: 8px;
   margin-bottom: 20px;
+  color: #b14949ce;
 }
 
 /* Random-Artwork styling  */
 
-.random-artwork-container {
+.random-artwork-container .detail-page-container {
   display: flex;
   width: 100%;
   height: 100vh;
+  color: #b14949ce;
 }
 
 .random-artwork-content {
   display: flex;
   width: 100%;
+  color: #b14949ce;
 }
 
 /* .left-side {
@@ -556,9 +601,10 @@ body {
 }
 
 .artwork-card {
-  background-color: #f5f5f5;
+  background-color: color #b14949ce;
   border-radius: 8px;
   overflow: hidden;
+  color: #b14949ce;
 }
 
 .artwork-image {
@@ -570,9 +616,74 @@ body {
 .artwork-info {
   padding: 10px;
   text-align: center;
+  color: #b14949ce;
 }
 
 .artwork-info h3 {
   font-size: 1.2rem;
   margin-bottom: 8px;
+  color: #b14949ce;
 }
+
+.random-artwork-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.random-artwork-content {
+  display: flex;
+  justify-content: space-between; /* Space out columns */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Limit the width */
+  gap: 30px; /* Space between columns */
+}
+
+.artwork-left,
+.artwork-center,
+.artwork-right {
+  flex: 1;
+}
+
+.artwork-left {
+  /* This is the empty column for spacing */
+  max-width: 10%;
+}
+
+.artwork-center {
+  max-width: 50%; /* The main focus is the center image */
+  text-align: center;
+}
+
+.artwork-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.artwork-right {
+  max-width: 40%; /* Details column */
+}
+
+.artwork-right h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #b14949ce;
+}
+
+.artwork-right p {
+  margin: 5px 0;
+  color: #b14949ce;
+}
+
+.artwork-right a {
+  display: inline-block;
+  margin-top: 15px;
+  color: #ff0000ce;
+}
+
+/* For our details revamped*/

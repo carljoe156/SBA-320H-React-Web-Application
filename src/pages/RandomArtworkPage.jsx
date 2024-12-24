@@ -13,39 +13,41 @@ const RandomArtworkPage = () => {
         let randomId;
         let artworkDetails;
         let attempts = 0;
-        const maxAttempts = 5; // Maximum attempts to get a valid artwork
+        const maxAttempts = 5;
 
-        // Keep trying until we get a valid artwork, but limit the number of attempts
         do {
           randomId = Math.floor(Math.random() * 400000); // Random number within the range of objects available
           artworkDetails = await fetchObjectDetails(randomId); // Fetch the artwork details
           attempts++;
           if (attempts > maxAttempts) {
             throw new Error(
-              "Max attempts reached. Could not fetch valid artwork."
+              "Max attempts reached. Could not fetch valid artwork, Try again."
             );
           }
-        } while (!artworkDetails.title); // If no title, retry with a new random ID
+        } while (!artworkDetails.title);
 
         setArtwork(artworkDetails); // Set artwork once we have a valid one
       } catch (error) {
+        console.error("Error fetching artwork:", error); // Log the error
         setError("Error fetching random artwork: " + error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    getRandomArtwork(); // Call the function to fetch random artwork on page load
+    getRandomArtwork();
   }, []);
 
+  // Handle the loading state
   if (loading) {
     return (
       <div className="random-artwork-container">
-        <SkeletonLoader /> {/* Display Skeleton Loader */}
+        <SkeletonLoader />
       </div>
     );
   }
 
+  // Handle errors if fetching fails
   if (error) {
     return <p>{error}</p>;
   }
@@ -54,17 +56,17 @@ const RandomArtworkPage = () => {
     <div className="random-artwork-container">
       {artwork ? (
         <div className="random-artwork-content">
-          <div className="artwork-left">
-            {/* Displaying the random artwork image */}
+          <div className="artwork-left"></div>
+
+          <div className="artwork-center">
             <img
-              src={artwork.primaryImage}
-              alt={artwork.title}
+              src={artwork.primaryImage || "fallback-image-url.jpg"} // Handles missing image
+              alt={artwork.title || "Unknown Artwork"} // Our Fallback alt text
               className="artwork-image"
             />
           </div>
 
           <div className="artwork-right">
-            {/* Artwork details */}
             <h1>{artwork.title}</h1>
             <p>
               <strong>Artist:</strong> {artwork.artistDisplayName}
@@ -76,11 +78,11 @@ const RandomArtworkPage = () => {
               <strong>Period:</strong> {artwork.objectDate}
             </p>
             <p>
-              <strong>Description:</strong>{" "}
+              <strong>Description:</strong>
               {artwork.objectDescription || "No description available."}
             </p>
             <p>
-              <strong>Classification:</strong>{" "}
+              <strong>Classification:</strong>
               {artwork.classification || "Not specified"}
             </p>
             <p>

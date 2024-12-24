@@ -11,6 +11,7 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [artworksPerPage] = useState(50); // Number of artworks per page
+  const [randomArtworks, setRandomArtworks] = useState([]); // State for random artworks
 
   // Fetch the artwork details for each page
   useEffect(() => {
@@ -38,6 +39,20 @@ const HomePage = () => {
         );
 
         setArtworks(filteredArtworks); // Set the filtered artworks to state
+
+        // Fetch random artworks
+        const randomArtworkPromises = Array.from({ length: 10 }).map(() => {
+          const randomId = Math.floor(Math.random() * 400000); // Random ID within available range
+          return fetchObjectDetails(randomId);
+        });
+        const randomArtworksData = await Promise.all(randomArtworkPromises);
+
+        // Filter random artworks to ensure they have images
+        const filteredRandomArtworks = randomArtworksData.filter(
+          (artwork) => artwork.primaryImage
+        );
+
+        setRandomArtworks(filteredRandomArtworks); // Set the random artworks to state
       } catch (error) {
         setError("Error fetching artworks. Please try again.");
       } finally {
@@ -70,6 +85,31 @@ const HomePage = () => {
       {loading && <SkeletonLoader count={10} />}
       {error && <p>{error}</p>}
 
+      <h2>Featured Random Artworks</h2>
+      <div className="masonry-grid">
+        {randomArtworks.map((artwork) => (
+          <Link to={`/details/${artwork.objectID}`} key={artwork.objectID}>
+            <img
+              className="masonry-item"
+              src={artwork.primaryImageSmall}
+              alt={artwork.title}
+            />
+            <div className="masonry-item-info">
+              <h3 className="artwork-title">{artwork.title}</h3>
+              {artwork.artistDisplayName && (
+                <p className="artwork-artist">
+                  Artist: {artwork.artistDisplayName}
+                </p>
+              )}
+              {artwork.objectDate && (
+                <p className="artwork-period">Period: {artwork.objectDate}</p>
+              )}
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <h2>Our Artwork Collection</h2>
       <div className="masonry-grid">
         {artworks.map((artwork) => (
           <Link to={`/details/${artwork.objectID}`} key={artwork.objectID}>

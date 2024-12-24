@@ -6,7 +6,7 @@ const About = () => {
   return (
     <>
       <div className="about-page">
-        <h1>Welcome to the Met Virtual Collection</h1>
+        <h1>Welcome to the MET Virtual Collection</h1>
         <p>
           This project has been a passion project of mine for a while, it's a
           ongoing creative process, as for now I hope you enjoy!.

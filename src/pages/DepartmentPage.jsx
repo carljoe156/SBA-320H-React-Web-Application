@@ -86,7 +86,7 @@ const DepartmentPage = () => {
 
       {selectedDepartmentId && (
         <>
-          <h2>Artworks in This Department</h2>
+          <h2 className="department-list-2">Artworks in This Department</h2>
           {loading && <SkeletonLoader count={10} />}
           {error && <p>{error}</p>}
 
