@@ -6,6 +6,7 @@ import {
 } from "../services/ArtworkService";
 import DepartmentCard from "../components/DepartmentCard";
 import SkeletonLoader from "../components/SkeletonLoader";
+import departmentImages from "../services/departmentImages";
 
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -47,7 +48,9 @@ const DepartmentPage = () => {
         );
 
         setArtworks(artworksData);
-        setTotalPages(Math.ceil(artworksData.length / 50)); // Updates the total pages in pagination
+        // const totalArtworkCount = 200;
+        const totalArtworkCount = 470000;
+        setTotalPages(Math.ceil(totalArtworkCount / 20)); // Updates the total pages for pagination
       } catch (error) {
         setError("Error fetching artworks.");
       } finally {
@@ -76,11 +79,23 @@ const DepartmentPage = () => {
 
       <div className="department-list">
         {departments.map((department) => (
-          <DepartmentCard
-            key={department.departmentId}
-            department={department}
-            onSelect={handleDepartmentSelect}
-          />
+          <div key={department.departmentId} className="department-card">
+            <img
+              src={
+                departmentImages[department.displayName] ||
+                "/images/default-department.jpg"
+              }
+              alt={department.displayName}
+              className="department-image"
+            />
+            <h2>{department.displayName}</h2>
+            <button
+              className="department-view-button"
+              onClick={() => handleDepartmentSelect(department.departmentId)}
+            >
+              View Artworks
+            </button>
+          </div>
         ))}
       </div>
 
@@ -95,7 +110,7 @@ const DepartmentPage = () => {
               <div key={artwork.objectID} className="artwork-card">
                 <img
                   className="artwork-image"
-                  src={artwork.primaryImageSmall || "default-image.jpg"}
+                  src={artwork.primaryImageSmall || "/images/default-image.jpg"} // Using local fallback image
                   alt={artwork.title}
                 />
                 <h3>{artwork.title}</h3>
