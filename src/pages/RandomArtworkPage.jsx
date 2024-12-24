@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchObjectDetails } from "../services/ArtworkService"; // pulls from  our Services
+import { fetchObjectDetails } from "../services/ArtworkService"; // pulls from our Services
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const RandomArtworkPage = () => {
   const [artwork, setArtwork] = useState(null);
@@ -9,11 +10,26 @@ const RandomArtworkPage = () => {
   useEffect(() => {
     const getRandomArtwork = async () => {
       try {
-        const randomId = Math.floor(Math.random() * 400000); // Random number within the range of objects available(Did you there are over 400,000 objects in the MET API? :') )
-        const artworkDetails = await fetchObjectDetails(randomId); // For Fetching the details of random object
-        setArtwork(artworkDetails);
+        let randomId;
+        let artworkDetails;
+        let attempts = 0;
+        const maxAttempts = 5; // Maximum attempts to get a valid artwork
+
+        // Keep trying until we get a valid artwork, but limit the number of attempts
+        do {
+          randomId = Math.floor(Math.random() * 400000); // Random number within the range of objects available
+          artworkDetails = await fetchObjectDetails(randomId); // Fetch the artwork details
+          attempts++;
+          if (attempts > maxAttempts) {
+            throw new Error(
+              "Max attempts reached. Could not fetch valid artwork."
+            );
+          }
+        } while (!artworkDetails.title); // If no title, retry with a new random ID
+
+        setArtwork(artworkDetails); // Set artwork once we have a valid one
       } catch (error) {
-        setError("Error fetching random artwork");
+        setError("Error fetching random artwork: " + error.message);
       } finally {
         setLoading(false);
       }
@@ -23,7 +39,11 @@ const RandomArtworkPage = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="random-artwork-container">
+        <SkeletonLoader /> {/* Display Skeleton Loader */}
+      </div>
+    );
   }
 
   if (error) {
@@ -33,12 +53,53 @@ const RandomArtworkPage = () => {
   return (
     <div className="random-artwork-container">
       {artwork ? (
-        <div className="random-artwork-details">
-          <h1>{artwork.title}</h1>
-          <img src={artwork.primaryImage} alt={artwork.title} />
-          <p>Artist: {artwork.artistDisplayName}</p>
-          <p>Period: {artwork.objectDate}</p>
-          <p>{artwork.objectDescription}</p>
+        <div className="random-artwork-content">
+          <div className="artwork-left">
+            {/* Displaying the random artwork image */}
+            <img
+              src={artwork.primaryImage}
+              alt={artwork.title}
+              className="artwork-image"
+            />
+          </div>
+
+          <div className="artwork-right">
+            {/* Artwork details */}
+            <h1>{artwork.title}</h1>
+            <p>
+              <strong>Artist:</strong> {artwork.artistDisplayName}
+            </p>
+            <p>
+              <strong>Medium:</strong> {artwork.medium}
+            </p>
+            <p>
+              <strong>Period:</strong> {artwork.objectDate}
+            </p>
+            <p>
+              <strong>Description:</strong>{" "}
+              {artwork.objectDescription || "No description available."}
+            </p>
+            <p>
+              <strong>Classification:</strong>{" "}
+              {artwork.classification || "Not specified"}
+            </p>
+            <p>
+              <strong>Dimensions:</strong> {artwork.dimensions || "N/A"}
+            </p>
+            <p>
+              <strong>Location:</strong> {artwork.gallery || "Not specified"}
+            </p>
+            <p>
+              <strong>Culture:</strong> {artwork.culture || "Not specified"}
+            </p>
+            <a
+              href={artwork.objectURL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on the Met's Website
+            </a>
+          </div>
         </div>
       ) : (
         <p>No artwork found.</p>

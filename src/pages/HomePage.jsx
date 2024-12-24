@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchObjectIDs, fetchObjectDetails } from "../services/ArtworkService";
 import ArtworkCard from "../components/ArtworkCard";
 import { Link } from "react-router-dom"; // Use Link to navigate
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const HomePage = () => {
   const [objectIDs, setObjectIDs] = useState([]);
@@ -66,7 +67,7 @@ const HomePage = () => {
     <div className="homepage-container">
       <h1>The Met Collection</h1>
 
-      {loading && <p>Loading artworks...</p>}
+      {loading && <SkeletonLoader count={10} />}
       {error && <p>{error}</p>}
 
       <div className="masonry-grid">

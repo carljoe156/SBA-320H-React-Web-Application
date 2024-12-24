@@ -5,6 +5,7 @@ import {
   fetchObjectDetails,
 } from "../services/ArtworkService";
 import DepartmentCard from "../components/DepartmentCard";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const DepartmentPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -86,7 +87,7 @@ const DepartmentPage = () => {
       {selectedDepartmentId && (
         <>
           <h2>Artworks in This Department</h2>
-          {loading && <p>Loading artworks...</p>}
+          {loading && <SkeletonLoader count={10} />}
           {error && <p>{error}</p>}
 
           <div className="artworks-container">
