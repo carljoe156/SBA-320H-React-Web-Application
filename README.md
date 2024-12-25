@@ -1,5 +1,7 @@
 # SBA-320H-React-Web-Application-The Museum Collection Application
 
+## Live Demo Link - [] ()
+
 ## The Met Museum Collection App
 
 Welcome to The Met Museum Collection App! This is a passion project that pulls data from The Metropolitan Museum of Art's API to showcase various pieces of artwork in a clean, interactive, and user-friendly interface. The goal is to make the museum's collection easily accessible to users, allowing them to explore the rich history and beauty of artwork from one of the world’s largest art museums.
@@ -19,9 +21,9 @@ This project fetches and displays artwork data from The Met’s API, including i
 
 #### Features:
 
-- Random Artwork: Display a random artwork every time the page is refreshed or by clicking a button.
+- Random Artwork: Display a random artwork every time the page is refreshed or by clicking the browser's refresh button.
 - Artwork Details: View detailed information about each artwork, including title, artist, description, and more.
-- Paginated Gallery: Navigate through multiple pages of artwork using a pagination system.
+- Home Page Paginated Gallery: Navigate through multiple pages of artwork using a pagination system, it's quite easy to navigate, click on a artwork at get it's details via the details page.
 
 ### Technologies Used
 
@@ -29,7 +31,8 @@ This project fetches and displays artwork data from The Met’s API, including i
 - JavaScript (ES6+): Modern JavaScript features like arrow functions, promises, destructuring, etc.
 - CSS: For styling and layout (using Flexbox and responsive design).
 - Fetch API: For retrieving data from The Met’s API.
-  React Router: For navigation between pages.
+- React Router: For navigation between pages.
+- React Carousel- Masonry
 
 ### API Used
 
